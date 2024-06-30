@@ -9,24 +9,22 @@ type CardProps = {
 
 export default function Card({ card, deleteCard }: CardProps) {
   const [petTime1, setPetTime1] = useState(String);
-  const [inputHours, setInputHours] = useState("");
-  const [inputMinutes, setInputMinutes] = useState("");
   const [petTime2, setPetTime2] = useState(String);
+  const [inputTime, setInputTime] = useState(String);
+  const [inputTime2, setInputTime2] = useState(String);
 
-  function changeTime(
-    hours: number,
-    minutes: number,
-    increaseHour: number,
-    increaseMinute: number
-  ) {
+  function changeTime(iHour: number, iMin: number, iTime: string) {
+    const [inputHour, inputMinute] = iTime.split(":").map(Number);
     const currentTime = new Date();
-    currentTime.setHours(+hours);
-    currentTime.setMinutes(currentTime.getMinutes() + minutes);
+    currentTime.setHours(inputHour + iHour);
+    currentTime.setMinutes(inputMinute + iMin);
+
+    console.log(inputHour);
+    console.log(inputMinute);
     const formattedTime = currentTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
-
     return formattedTime;
   }
 
@@ -44,40 +42,33 @@ export default function Card({ card, deleteCard }: CardProps) {
         <div className="flex justify-between bg-gray-400 p-2 rounded items-center">
           <div className="h-16 w-16 bg-gray-600 rounded-md">Pet Image</div>
           <div className="flex flex-col w-2/3 rounded bg-gray-400">
-            <div>Wake up by : {petTime1}</div>
-            <div className="flex justify-between">
+            <div>
+              <div>Pet wake up time </div>
+              <div>{petTime1}</div>
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-between">
               <input
-                type="number"
-                value={inputHours}
-                onChange={(e) => setInputHours(e.target.value)}
-                className="w-8 p-1 border rounded mr-2"
+                type="time"
+                value={inputTime}
+                onChange={(e) => setInputTime(e.target.value)}
+                className=" p-1 rounded md:w-1/3 "
                 placeholder="Hr"
               />
-              <input
-                type="number"
-                value={inputMinutes}
-                onChange={(e) => setInputMinutes(e.target.value)}
-                className="w-8 p-1 border rounded mr-2"
-                placeholder="Min"
-              />
-              <button
-                className="bg-blue-500 rounded p-2 text-white transition duration-300 ease-in-out transform active:scale-95"
-                onClick={() => {
-                  // setPetTime1(
-                  //     changeTime(Number(inputHours), Number(inputMinutes))
-                  // );
-                }}
-              >
-                21Hrs
-              </button>
-              <button
-                className="bg-blue-500 rounded p-2 text-white transition duration-300 ease-in-out transform active:scale-95"
-                onClick={() => {
-                  // setPetTime1(changeTime(0, 30));
-                }}
-              >
-                30Mins
-              </button>
+              <div className="flex justify-between w-full mt-2 md:mt-0 md:ml-2">
+                <button
+                  className="bg-blue-500 rounded mr-1 p-2 text-white w-1/2 transition duration-300 ease-in-out transform active:scale-95"
+                  onClick={() => setPetTime1(changeTime(21, 0, inputTime))}
+                >
+                  21Hrs
+                </button>
+                <button
+                  className="bg-blue-500 rounded ml-1 p-2 text-white w-1/2 transition duration-300 ease-in-out transform active:scale-95"
+                  onClick={() => setPetTime1(changeTime(0, 30, inputTime))}
+                >
+                  30Mins
+                </button>
+              </div>
             </div>
           </div>
         </div>
