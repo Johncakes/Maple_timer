@@ -1,6 +1,8 @@
 // components/card.tsx
 import React, { useState } from "react";
+import Image from "next/image";
 import { CardData } from "../types/card";
+import petIcon from "../Images/petIcon.png";
 
 type CardProps = {
   card: CardData;
@@ -29,8 +31,8 @@ export default function Card({ card, deleteCard }: CardProps) {
   }
 
   return (
-    <div className="relative w-full border border-white p-3 shadow-xl box-border rounded-md my-2">
-      <div className="absolute top-0 right-2">
+    <div className="relative w-full border p-3 shadow-md box-border rounded-md my-2">
+      <div className="absolute top-1 right-3">
         <button onClick={() => deleteCard(card.id)}>x</button>
       </div>
       <div className="flex flex-col place-content-center justify-between">
@@ -39,12 +41,22 @@ export default function Card({ card, deleteCard }: CardProps) {
           <div className="flex justify-center">{card.name}</div>
         </div>
 
-        <div className="flex justify-between bg-gray-400 p-2 rounded items-center">
-          <div className="h-16 w-16 bg-gray-600 rounded-md">Pet Image</div>
-          <div className="flex flex-col w-2/3 rounded bg-gray-400">
+        <div className="flex justify-between rounded md:items-start items-center">
+          {/* <div className="h-16 w-16 bg-gray-600 rounded-md">Pet Image</div> */}
+          <div className="flex flex-col ">
+            <Image
+              src={petIcon}
+              alt="Pet"
+              width={64}
+              height={64}
+              className="border rounded p-2 bg-white "
+            />
+            <div>level</div>
+          </div>
+          <div className="flex flex-col border p-2 w-full ml-2 rounded ">
             <div>
               <div>Pet wake up time </div>
-              <div>{petTime1}</div>
+              <div>{petTime1 || "Pick Time first"}</div>
             </div>
 
             <div className="flex flex-col md:flex-row justify-between">
@@ -52,7 +64,7 @@ export default function Card({ card, deleteCard }: CardProps) {
                 type="time"
                 value={inputTime}
                 onChange={(e) => setInputTime(e.target.value)}
-                className=" p-1 rounded md:w-1/3 "
+                className=" p-1 rounded border md:w-1/3 "
                 placeholder="Hr"
               />
               <div className="flex justify-between w-full mt-2 md:mt-0 md:ml-2">
