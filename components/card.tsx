@@ -1,8 +1,10 @@
 // components/card.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CardData } from "../types/card";
 import petIcon from "../Images/petIcon.png";
+
+const apikey = process.env.MAPLE_API_KEY as string;
 
 type CardProps = {
   card: CardData;
@@ -14,6 +16,21 @@ export default function Card({ card, deleteCard }: CardProps) {
   const [petTime2, setPetTime2] = useState(String);
   const [inputTime, setInputTime] = useState(String);
   const [inputTime2, setInputTime2] = useState(String);
+  const [apiData, setApiData] = useState<any>(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      const query = await fetch("/api/fetchdata");
+      if (query.ok) {
+        const response = await query.json();
+        setApiData(response);
+        console.log(response);
+      } else {
+        console.log("failed");
+      }
+    };
+    getData();
+  }, []);
 
   function changeTime(iHour: number, iMin: number, iTime: string) {
     const [inputHour, inputMinute] = iTime.split(":").map(Number);
@@ -82,6 +99,13 @@ export default function Card({ card, deleteCard }: CardProps) {
                 </button>
               </div>
             </div>
+
+            {apiData && (
+              <div className="mt-4">
+                <div>API DATA:</div>
+                <div>{JSON.stringify(apiData)}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
