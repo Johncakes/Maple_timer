@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const apikey = process.env.MAPLE_API_KEY;
-  const urlString = `https://open.api.nexon.com/maplestory/v1/id?character_name=${req.query.username}`;
+  const urlString = `https://open.api.nexon.com/maplestory/v1/character/basic?ocid=${req.query.ocid}`;
 
   if (!apikey) {
     return res.status(500).json({ error: "API key is not defined." });

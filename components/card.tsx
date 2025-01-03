@@ -2,35 +2,69 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CardData } from "../types/card";
+import { playerDataType } from "../types/playerData";
+import { ocid } from "../types/ocid";
 import petIcon from "../Images/petIcon.png";
-
-const apikey = process.env.MAPLE_API_KEY as string;
+import NameInput from "./modal/nameInput";
+import { Button, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import CloseIcon from "@mui/icons-material/Close";
 
 type CardProps = {
   card: CardData;
   deleteCard: (id: number) => void;
 };
 
+const username = "Cakes";
+
 export default function Card({ card, deleteCard }: CardProps) {
+  const [charName, setCharName] = useState(String);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [petTime1, setPetTime1] = useState(String);
   const [petTime2, setPetTime2] = useState(String);
   const [inputTime, setInputTime] = useState(String);
   const [inputTime2, setInputTime2] = useState(String);
-  const [apiData, setApiData] = useState<any>(null);
+  const [ocidData, setOcidData] = useState<ocid>();
+  const [playerData, setPlayerData] = useState<playerDataType>();
+
+  const handleOpen = () => setModalIsOpen(true);
+  const handleClose = () => setModalIsOpen(false);
 
   useEffect(() => {
-    const getData = async () => {
-      const query = await fetch("/api/fetchdata");
+    const getOcidData = async () => {
+      const query = await fetch(`/api/getUserOcid?username=${charName}`);
       if (query.ok) {
         const response = await query.json();
-        setApiData(response);
-        console.log(response);
+        setOcidData(response);
+        console.log("Response data : ", response);
       } else {
-        console.log("failed");
+        console.log("Failed to fetch data");
       }
     };
-    getData();
-  }, []);
+
+    if (charName) {
+      getOcidData();
+    }
+  }, [charName]);
+
+  useEffect(() => {
+    const getPlayerData = async () => {
+      const ocid = ocidData?.ocid;
+      const query = await fetch(`/api/getPlayerData?ocid=${ocid}`);
+      if (query.ok) {
+        const response = await query.json();
+        setPlayerData(response);
+        console.log("Player Response data : ", playerData);
+      } else {
+        console.log("Failed to fetch data");
+      }
+    };
+
+    if (ocidData) {
+      getPlayerData();
+    }
+  }, [ocidData]);
 
   function changeTime(iHour: number, iMin: number, iTime: string) {
     const [inputHour, inputMinute] = iTime.split(":").map(Number);
@@ -38,8 +72,6 @@ export default function Card({ card, deleteCard }: CardProps) {
     currentTime.setHours(inputHour + iHour);
     currentTime.setMinutes(inputMinute + iMin);
 
-    console.log(inputHour);
-    console.log(inputMinute);
     const formattedTime = currentTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -48,29 +80,66 @@ export default function Card({ card, deleteCard }: CardProps) {
   }
 
   return (
-    <div className="relative w-full border p-3 shadow-md box-border rounded-md my-2">
-      <div className="absolute top-1 right-3">
-        <button onClick={() => deleteCard(card.id)}>x</button>
+    <div className="relative border p-3 w-3/4 shadow-md box-border rounded-md my-2">
+      <div className="absolute top-1 right-1">
+        <IconButton onClick={() => deleteCard(card.id)}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
       </div>
       <div className="flex flex-col place-content-center justify-between">
         <div className="flex mb-2">
-          <div className="h-12 w-12 bg-black rounded-md"></div>
-          <div className="flex justify-center">{card.name}</div>
+          <div className="h-12 w-12 border rounded flex justify-center items-center">
+            {playerData ? (
+              <Image
+                src={playerData.character_image}
+                alt={"test"}
+                width={48}
+                height={48}
+              ></Image>
+            ) : (
+              <div>
+                <QuestionMarkIcon />
+              </div>
+            )}
+          </div>
+          {charName && playerData ? (
+            <div className="flex flex-col ml-2 justify-center items-center">
+              <div>
+                {charName}
+                <IconButton onClick={handleOpen}>
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </div>
+              <div>Level : {playerData?.character_level}</div>
+            </div>
+          ) : (
+            <button
+              onClick={handleOpen}
+              className="bg-blue-500 rounded p-2 text-white ml-2"
+            >
+              Add Character
+            </button>
+          )}
+          <NameInput
+            open={modalIsOpen}
+            close={handleClose}
+            setName={setCharName}
+          />
         </div>
 
-        <div className="flex justify-between rounded md:items-start items-center">
-          {/* <div className="h-16 w-16 bg-gray-600 rounded-md">Pet Image</div> */}
-          <div className="flex flex-col ">
+        <div className="flex rounded md:items-start items-center w-full">
+          <div className="flex flex-col flex-shrink-0">
             <Image
               src={petIcon}
               alt="Pet"
-              width={64}
-              height={64}
+              width={48}
+              height={48}
               className="border rounded p-2 bg-white "
             />
             <div>level</div>
           </div>
-          <div className="flex flex-col border p-2 w-full ml-2 rounded ">
+
+          <div className="flex flex-col border p-2 ml-2 rounded w-full">
             <div>
               <div>Pet wake up time </div>
               <div>{petTime1 || "Pick Time first"}</div>
@@ -100,10 +169,10 @@ export default function Card({ card, deleteCard }: CardProps) {
               </div>
             </div>
 
-            {apiData && (
+            {ocidData && (
               <div className="mt-4">
                 <div>API DATA:</div>
-                <div>{JSON.stringify(apiData)}</div>
+                <div>{JSON.stringify(ocidData)}</div>
               </div>
             )}
           </div>
