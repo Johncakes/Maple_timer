@@ -1,0 +1,36 @@
+{
+    "pet":{
+        "time" :{
+            "21hr": "21시간",
+            "30min": "30분"
+        },
+        "wake_time" : "Wake up time : {{time}}"
+    },
+
+    "add":{
+        "char_name": "캐릭터명",
+        "add_char" : "캐릭터 추가하기"
+    },
+
+    "character_info":{
+        "char_name": "캐릭터명 ",
+        "level": "레벨 ",
+        "world": "월드 "
+    },
+
+    "button":{
+        "search":"검색하기",
+        "add": "추가",
+        "ok": "확인",
+        "cancel": "취소"
+    },
+
+    "world":{
+        "scania": "스카니아",
+        "luna": "루나",
+        "croa" : "크로아",
+        "elysium" : "엘리시움",
+        "bera": "베라",
+        "aurora": "오로라"
+    }
+}

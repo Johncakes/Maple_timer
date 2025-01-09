@@ -1,0 +1,36 @@
+{
+    "pet":{
+        "time" :{
+            "21hr": "21 Hrs",
+            "30min": "30 Min"
+        },
+        "wake_time" : "Wake time : {{time}}"
+    },
+
+    "add":{
+        "char_name": "Character Name",
+        "add_char": "Add Character"
+    },
+
+    "character_info":{
+        "char_name": "Name ",
+        "level": "Level ",
+        "world": "World "
+    },
+
+    "button":{
+        "search":"Search",
+        "add": "Add",
+        "ok": "OK",
+        "cancel": "Cancel"
+    },
+
+    "world":{
+        "scania": "Scania",
+        "luna": "Luna",
+        "croa" : "Croa",
+        "elysium" : "Elysium",
+        "bera": "Bera",
+        "aurora": "Aurora"
+    }
+}
