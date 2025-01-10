@@ -12,6 +12,11 @@
         "add_char": "Add Character"
     },
 
+    "edit":{
+        "char_name": "Character Name",
+        "edit_char": "Edit Character"
+    },
+
     "character_info":{
         "char_name": "Name ",
         "level": "Level ",
@@ -20,6 +25,7 @@
 
     "button":{
         "search":"Search",
+        "save": "Save",
         "add": "Add",
         "ok": "OK",
         "cancel": "Cancel"

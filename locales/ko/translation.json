@@ -12,6 +12,11 @@
         "add_char" : "캐릭터 추가하기"
     },
 
+    "edit":{
+        "char_name": "캐릭터명",
+        "edit_char": "캐릭터 수정하기"
+    },
+
     "character_info":{
         "char_name": "캐릭터명 ",
         "level": "레벨 ",
@@ -20,6 +25,7 @@
 
     "button":{
         "search":"검색하기",
+        "save": "저장",
         "add": "추가",
         "ok": "확인",
         "cancel": "취소"
