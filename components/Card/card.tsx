@@ -8,6 +8,8 @@ import { IconButton } from "@mui/material";
 import Pet from "./pet";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import CloseIcon from "@mui/icons-material/Close";
+import i18n from "@/locales/config";
+import { WORLDS } from "@/constants/world";
 
 type CardProps = {
   card: CardData;
@@ -15,41 +17,7 @@ type CardProps = {
 };
 
 export default function Card({ card, deleteCard }: CardProps) {
-  const [ocidData, setOcidData] = useState<ocid>();
-  const [playerData, setPlayerData] = useState<playerDataType>();
   const [showDetail, setShowDetail] = useState(false);
-
-  useEffect(() => {
-    const getOcidData = async () => {
-      const query = await fetch(`/api/getUserOcid?username=${card.name}`);
-      if (query.ok) {
-        const response = await query.json();
-        setOcidData(response);
-        console.log("Response data : ", response);
-      } else {
-        console.log("Failed to fetch data");
-      }
-    };
-
-    getOcidData();
-  }, []);
-
-  useEffect(() => {
-    const getPlayerData = async () => {
-      const ocid = ocidData?.ocid;
-      const query = await fetch(`/api/getPlayerData?ocid=${ocid}`);
-      if (query.ok) {
-        const response = await query.json();
-        setPlayerData(response);
-        console.log("Player Response data : ", playerData);
-      } else {
-        console.log("Failed to fetch data");
-      }
-    };
-    if (ocidData) {
-      getPlayerData();
-    }
-  }, [ocidData]);
 
   return (
     <div className="relative border p-2 w-full shadow-md box-border rounded-md my-2">
@@ -61,25 +29,12 @@ export default function Card({ card, deleteCard }: CardProps) {
       <div className="flex flex-col place-content-center justify-between">
         <div className="flex " onClick={() => setShowDetail(!showDetail)}>
           <div className="h-16 w-16 border rounded flex justify-center items-center">
-            {playerData ? (
-              <Image
-                src={playerData.character_image}
-                alt={"test"}
-                width={64}
-                height={64}
-              ></Image>
-            ) : (
-              <div>
-                <QuestionMarkIcon />
-              </div>
-            )}
+            <Image src={card.image} alt={"test"} width={64} height={64}></Image>
           </div>
-          {playerData && (
-            <div className="flex flex-col ml-2 py-2">
-              <div>{playerData.character_name}</div>
-              <div>Level : {playerData?.character_level}</div>
-            </div>
-          )}
+          <div className="flex flex-col ml-2 py-2">
+            <div className="font-bold">{card.name}</div>
+            <div className="text-sm">{i18n.t(`${WORLDS(card.world)}`)}</div>
+          </div>
         </div>
 
         {showDetail && (

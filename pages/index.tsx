@@ -31,7 +31,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <MainHeader />
       <main className="flex-grow flex justify-center bg-gray-100 overflow-y-auto">
-        <div className="flex flex-col items-center pt-16 max-w-screen-md w-full p-4 bg-white min-h-screen">
+        <div className="flex flex-col items-center pt-20 max-w-screen-md w-full p-4 bg-white min-h-screen">
           {Cards.map((card) => (
             <Card key={card.id} card={card} deleteCard={deleteCard} />
           ))}

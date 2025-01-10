@@ -70,7 +70,7 @@ export default function AddCharacter(props: {
 
   return (
     <Modal open={props.open} onClose={handleClose}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 ">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 md:w-1/2 ">
         <div className="flex flex-col p-4">
           <h1 className="text-2xl font-bold">{i18n.t("add.add_char")}</h1>
           <label htmlFor="name" className="text-lg">
