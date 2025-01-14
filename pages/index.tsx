@@ -22,8 +22,8 @@ export default function Home() {
     setCardIdCounter(cardIdCounter + 1);
   }
 
-  function deleteCard(id: number) {
-    setCards(Cards.filter((card) => card.id !== id));
+  function deleteCard(id: number[]) {
+    setCards((prevCards) => prevCards.filter((card) => !id.includes(card.id)));
   }
 
   const handleOpenAdd = () => setShowAddCharacter(true);
@@ -38,7 +38,7 @@ export default function Home() {
       <main className="flex-grow flex justify-center bg-gray-100 overflow-y-auto">
         <div className="flex flex-col items-center pt-20 max-w-screen-md w-full p-4 bg-white min-h-screen">
           {Cards.map((card) => (
-            <Card key={card.id} card={card} deleteCard={deleteCard} />
+            <Card key={card.id} card={card} />
           ))}
 
           <Edit

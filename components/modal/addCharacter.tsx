@@ -68,6 +68,12 @@ export default function AddCharacter(props: {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <Modal open={props.open} onClose={handleClose}>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 md:w-1/2 ">
@@ -84,6 +90,7 @@ export default function AddCharacter(props: {
               value={name}
               placeholder="Enter Name"
               onChange={(e) => setName(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
             <button
               onClick={handleSearch}
