@@ -52,6 +52,7 @@ export default function AddCharacter(props: {
 
   const handleClose = () => {
     setName("");
+    setError("");
     setPlayerData(undefined);
     props.close();
   };
@@ -65,6 +66,8 @@ export default function AddCharacter(props: {
         image: playerData.character_image,
       });
       handleClose();
+    } else {
+      setError(i18n.t("error.search"));
     }
   };
 
@@ -130,14 +133,14 @@ export default function AddCharacter(props: {
 
           <div className="flex flex-row justify-between mt-2">
             <button
-              className="bg-gray-400 text-white p-2 min-w-24 rounded-lg"
+              className="bg-gray-500 text-white p-2 min-w-24 rounded-lg"
               onClick={handleClose}
             >
               {i18n.t("button.cancel")}
             </button>
             <button
               className={`p-2 min-w-24 rounded-lg ${
-                playerData && !error ? "bg-blue-500" : "bg-gray-400"
+                playerData && !error ? "bg-blue-500" : "bg-gray-500"
               } text-white`}
               onClick={handleAdd}
             >

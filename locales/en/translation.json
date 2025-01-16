@@ -14,7 +14,8 @@
 
     "edit":{
         "char_name": "Character Name",
-        "edit_char": "Edit Character"
+        "edit_char": "Edit Character",
+        "no_char" : "No Characters"
     },
 
     "character_info":{
@@ -29,6 +30,10 @@
         "add": "Add",
         "ok": "OK",
         "cancel": "Cancel"
+    },
+
+    "error":{
+        "search": "Please search for a character first!"
     },
 
     "world":{

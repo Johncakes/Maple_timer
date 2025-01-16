@@ -14,7 +14,8 @@
 
     "edit":{
         "char_name": "캐릭터명",
-        "edit_char": "캐릭터 수정하기"
+        "edit_char": "캐릭터 수정하기",
+        "no_char" : "캐릭터 없음"
     },
 
     "character_info":{
@@ -29,6 +30,10 @@
         "add": "추가",
         "ok": "확인",
         "cancel": "취소"
+    }, 
+
+    "error":{
+        "search": "캐릭터 검색을 먼저 해주세요!" 
     },
 
     "world":{
