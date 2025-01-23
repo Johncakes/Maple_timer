@@ -1,8 +1,6 @@
 import Modal from "@mui/material/Modal";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { ocid } from "@/types/ocid";
 import { playerDataType } from "@/types/playerData";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import i18n from "@/locales/config";
 import Image from "next/image";
 import { WORLDS } from "@/constants/world";
@@ -15,6 +13,8 @@ export default function AddCharacter(props: {
     level: number;
     world: string;
     image: string;
+    leftPetTime: string;
+    rightPetTime: string;
   }) => void;
 }) {
   const [playerData, setPlayerData] = useState<playerDataType>();
@@ -64,6 +64,8 @@ export default function AddCharacter(props: {
         level: playerData.character_level,
         world: playerData.world_name,
         image: playerData.character_image,
+        leftPetTime: "00:00",
+        rightPetTime: "00:00",
       });
       handleClose();
     } else {
@@ -133,14 +135,14 @@ export default function AddCharacter(props: {
 
           <div className="flex flex-row justify-between mt-2">
             <button
-              className="bg-gray-500 text-white p-2 min-w-24 rounded-lg"
+              className="bg-gray-400 text-white p-2 min-w-24 rounded-lg"
               onClick={handleClose}
             >
               {i18n.t("button.cancel")}
             </button>
             <button
               className={`p-2 min-w-24 rounded-lg ${
-                playerData && !error ? "bg-blue-500" : "bg-gray-500"
+                playerData && !error ? "bg-blue-500" : "bg-gray-400"
               } text-white`}
               onClick={handleAdd}
             >

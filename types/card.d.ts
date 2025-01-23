@@ -4,4 +4,6 @@ export type CardData = {
   level: number;
   world: string;
   image: string;
+  leftPetTime: string;
+  rightPetTime: string;
 };

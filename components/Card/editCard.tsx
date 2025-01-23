@@ -12,7 +12,9 @@ type CardProps = {
 
 export default function EditCard({ card, deleteCard, isLast }: CardProps) {
   return (
-    <div className={`relative p-2 w-full mt-2 ${!isLast ? "border-b" : ""}`}>
+    <div
+      className={`relative p-2 w-full mt-2 ${!isLast ? "border-b" : "mb-2"}`}
+    >
       <div className="flex justify-between align-middle items-center">
         <div className="flex align-middle items-center">
           <div className="flex py-2">
@@ -20,7 +22,7 @@ export default function EditCard({ card, deleteCard, isLast }: CardProps) {
           </div>
         </div>
         <IconButton onClick={() => deleteCard(card.id)}>
-          <DeleteIcon />
+          <DeleteIcon sx={{ color: "#EF4343" }} />
         </IconButton>
       </div>
     </div>
