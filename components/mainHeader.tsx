@@ -1,5 +1,5 @@
 // components/FixedHeader.tsx
-import { IconButton } from "@mui/material";
+import { AppBar, IconButton } from "@mui/material";
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -9,8 +9,13 @@ export default function MainHeader(props: {
   openEdit: () => void;
   openSettings: () => void;
 }) {
+  // <header className="fixed top-0 left-0 w-full bg-white dark:bg-zinc-800 dark:border-zinc-600 p-4 border-b-2 z-50">
+  // </header>
   return (
-    <header className="fixed top-0 left-0 w-full bg-white text-white p-4 border-b-2 z-50">
+    <AppBar
+      position="sticky"
+      className="p-4 bg-white shadow-none border-b-2 dark:border-zinc-700 dark:bg-stone-950"
+    >
       <div className="container flex justify-between items-center ">
         <div className="text-2xl font-bold text-blue-500">
           {i18n.t("title")}
@@ -24,6 +29,6 @@ export default function MainHeader(props: {
           </IconButton>
         </div>
       </div>
-    </header>
+    </AppBar>
   );
 }

@@ -9,9 +9,9 @@
     },
 
     "add":{
-        "char_name": "캐릭터명",
-        "add_char" : "캐릭터 추가하기",
-        "search_bar": "이름 검색",
+        "char_name": "닉네임",
+        "add_char" : "캐릭터 추가",
+        "search_bar": "닉네임 검색",
 
         "error":{
             "400" : "캐릭터를 찾을 수 없습니다.",
@@ -21,8 +21,7 @@
     },
 
     "edit":{
-        "char_name": "캐릭터명",
-        "edit_char": "캐릭터 수정하기",
+        "edit_char": "캐릭터 수정",
         "no_char" : "캐릭터 없음"
     },
 
@@ -31,8 +30,8 @@
         "language": "언어",
         "theme": {
             "title": "테마",
-            "light": "밝음",
-            "dark": "어두움"
+            "light": "라이트 모드",
+            "dark": "다크 모드"
         }
     },
 

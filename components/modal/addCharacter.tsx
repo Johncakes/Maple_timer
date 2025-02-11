@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import i18n from "@/locales/config";
 import Image from "next/image";
 import { WORLDS } from "@/constants/world";
+import { Card, CardMedia, TextField } from "@mui/material";
 
 export default function AddCharacter(props: {
   open: boolean;
@@ -73,16 +74,16 @@ export default function AddCharacter(props: {
 
   return (
     <Modal open={props.open} onClose={handleClose}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 md:w-1/2 ">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white dark:bg-zinc-800 rounded-lg w-11/12 md:w-1/2 ">
         <div className="flex flex-col p-4">
-          <h1 className="text-2xl font-bold mb-2">{i18n.t("add.add_char")}</h1>
+          <h1 className="dark:text-white text-2xl font-bold mb-2">
+            {i18n.t("add.add_char")}
+          </h1>
           <div className="flex flex-row w-full space-x-2">
-            <input
-              type="text"
-              id="name"
-              className="border p-2 w-full rounded-lg"
-              value={name}
-              placeholder={i18n.t("add.search_bar")}
+            <TextField
+              label={i18n.t("add.search_bar")}
+              variant="outlined"
+              className="w-full"
               onChange={(e) => setName(e.target.value)}
               onKeyDown={handleKeyDown}
               spellCheck="false"
@@ -92,17 +93,20 @@ export default function AddCharacter(props: {
           <div className="flex flex-row mt-2">
             {playerData && (
               <div className="flex flex-row space-x-2">
-                <div className="h-24 w-24 border rounded-lg flex justify-center items-center ">
-                  <Image
-                    src={playerData.character_image}
-                    alt={"PlayerImage"}
-                    width={96}
-                    height={96}
-                  ></Image>
-                </div>
+                <Card className="border dark:border-zinc-700 dark:bg-zinc-800 shadow-none">
+                  <CardMedia>
+                    <Image
+                      src={playerData.character_image}
+                      alt={"PlayerImage"}
+                      width={96}
+                      height={96}
+                      className="-scale-x-100"
+                    ></Image>
+                  </CardMedia>
+                </Card>
                 <div>
-                  <div className="p-2">
-                    <div>{playerData.character_name}</div>
+                  <div className="p-2 dark:text-white">
+                    <div className="font-bold">{playerData.character_name}</div>
                     <div>
                       {i18n.t("character_info.level")}
                       {playerData.character_level}
@@ -122,7 +126,7 @@ export default function AddCharacter(props: {
               {i18n.t("button.add")}
             </button>
             <button
-              className="text-gray-600 p-2 min-w-20 rounded-xl hover:bg-gray-200"
+              className="text-gray-600 dark:text-white p-2 min-w-20 rounded-xl hover:bg-gray-200"
               onClick={handleClose}
             >
               {i18n.t("button.cancel")}

@@ -27,8 +27,8 @@ export default function Edit(props: {
 
   return (
     <Modal open={props.open} onClose={handleClose}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center  rounded-lg w-11/12 md:w-1/2 bg-white">
-        <h1 className="text-2xl font-bold border-b-2 p-4">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center  rounded-lg w-11/12 md:w-1/2 bg-white dark:bg-zinc-800">
+        <h1 className="dark:text-white text-2xl font-bold dark:border-zinc-600 border-b-2 p-4">
           {i18n.t("edit.edit_char")}
         </h1>
         <div className="flex flex-col px-4 overflow-y-auto max-h-80 ">
@@ -57,7 +57,7 @@ export default function Edit(props: {
             {i18n.t("button.save")}
           </button>
           <button
-            className="text-gray-600 px-2 h-9 min-w-20 rounded-xl hover:bg-gray-200"
+            className="dark:text-white text-gray-600 px-2 h-9 min-w-20 rounded-xl hover:bg-gray-200"
             onClick={handleClose}
           >
             {i18n.t("button.cancel")}

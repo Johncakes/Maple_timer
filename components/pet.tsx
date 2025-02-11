@@ -27,16 +27,16 @@ export default function Pet(props: {
           <RefreshIcon fontSize="small" />
         </IconButton>
       </div>
-      <div className="flex flex-col items-center border p-2 rounded w-full">
+      <div className="flex flex-col items-center border dark:border-zinc-600 p-2 rounded w-full">
         <Image
           src={petIcon}
           alt="Pet"
           width={48}
           height={48}
-          className="border rounded p-2 bg-gray-100"
+          className="border dark:border-none rounded p-2 bg-gray-100 dark:bg-zinc-600"
         />
 
-        <div className="text-xs sm:text-base md:text-lg my-2">
+        <div className="dark:text-white text-xs sm:text-base md:text-lg my-2">
           {i18n.t("pet.wake_time", { time: props.petTime })}
         </div>
 

@@ -5,45 +5,54 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useState, ReactNode, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import i18n from "@/locales/config";
 
-export default function Settings(props: { open: boolean; close: () => void }) {
-  console.log(i18n.language);
-  const [language, setLanguage] = useState(i18n.language);
-  const [languageSelectText, setLanguageSelectText] = useState<string>(
-    i18n.language
-  );
-  const [theme, setTheme] = useState("light");
+export default function Settings(props: {
+  open: boolean;
+  close: () => void;
+  theme: string;
+  setTheme: (theme: string) => void;
+  language: string;
+  setLanguage: (language: string) => void;
+}) {
+  const [prevLanguage, setPrevLanguage] = useState(props.language);
+  const [prevTheme, setPrevTheme] = useState(props.theme);
 
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-    setLanguageSelectText(event.target.value as string);
+    setPrevLanguage(props.language);
     i18n.changeLanguage(event.target.value as string);
+    props.setLanguage(i18n.language);
   };
 
   const handleThemeChange = (event: SelectChangeEvent<string>) => {
-    setTheme(event.target.value as string);
+    setPrevTheme(props.theme);
+    props.setTheme(event.target.value as string);
+    localStorage.setItem("theme", event.target.value as string);
   };
 
   const handleSave = () => {
-    setLanguage(i18n.language);
-    localStorage.setItem("i18nextLng", i18n.language);
+    setPrevLanguage(props.language);
+    setPrevTheme(props.theme);
     props.close();
   };
   const handleCancel = () => {
-    i18n.changeLanguage(language);
+    i18n.changeLanguage(prevLanguage);
+    props.setLanguage(prevLanguage);
+    props.setTheme(prevTheme);
     props.close();
   };
 
   useEffect(() => {
-    setLanguageSelectText(i18n.language);
-  }, [i18n.language]);
+    setPrevLanguage(props.language);
+    setPrevTheme(props.theme);
+  }, [props.open]);
 
   return (
     <Modal open={props.open} onClose={handleCancel}>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 md:w-1/2 ">
-        <div className="flex flex-col p-4">
-          <h1 className="text-2xl font-bold mb-2">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white dark:bg-zinc-800 rounded-lg w-11/12 md:w-1/2 ">
+        <div className="flex flex-col p-4 space-y-2">
+          <h1 className="text-2xl font-bold dark:text-white">
             {i18n.t("settings.title")}
           </h1>
           <div>
@@ -53,8 +62,7 @@ export default function Settings(props: { open: boolean; close: () => void }) {
             <Select
               labelId="languageLabel"
               id="language"
-              label="Theme"
-              value={languageSelectText}
+              value={props.language}
               onChange={handleLanguageChange}
               className="w-full"
             >
@@ -69,8 +77,7 @@ export default function Settings(props: { open: boolean; close: () => void }) {
             <Select
               labelId="themeLabel"
               id="theme"
-              label="Theme"
-              value={theme}
+              value={props.theme}
               onChange={handleThemeChange}
               className="w-full"
             >
@@ -88,7 +95,7 @@ export default function Settings(props: { open: boolean; close: () => void }) {
               {i18n.t("button.save")}
             </button>
             <button
-              className="text-gray-600 p-2 min-w-20 rounded-xl hover:bg-gray-200"
+              className="dark:text-white text-gray-600 p-2 min-w-20 rounded-xl hover:bg-gray-200"
               onClick={handleCancel}
             >
               {i18n.t("button.cancel")}

@@ -21,8 +21,7 @@
     },
 
     "edit":{
-        "char_name": "Character Name",
-        "edit_char": "Edit Character",
+        "edit_char": "Edit",
         "no_char" : "No Characters"
     },
 
