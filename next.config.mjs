@@ -2,8 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains : ['open.api.nexon.com']
-  }
+    remotePatterns:[
+    {
+      protocol: 'https',
+      hostname: 'open.api.nexon.com'
+    },
+   ],
+  },
 
 };
 

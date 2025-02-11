@@ -1,5 +1,5 @@
 import Modal from "@mui/material/Modal";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import i18n from "@/locales/config";
 import EditCard from "../Card/editCard";
 import { CardData } from "@/types/card";
@@ -8,11 +8,11 @@ export default function Edit(props: {
   open: boolean;
   card: CardData[];
   close: () => void;
-  deleteCard: (id: number[]) => void;
+  deleteCard: (id: string[]) => void;
 }) {
-  const [cardToDelete, setCardToDelete] = useState<number[]>([]);
+  const [cardToDelete, setCardToDelete] = useState<string[]>([]);
 
-  const addDeleteCard = (id: number) => {
+  const addDeleteCard = (id: string) => {
     setCardToDelete((prev) => [...prev, id]);
   };
 
@@ -32,7 +32,8 @@ export default function Edit(props: {
           {i18n.t("edit.edit_char")}
         </h1>
         <div className="flex flex-col px-4 overflow-y-auto max-h-80 ">
-          {props.card.length === 0 && (
+          {(props.card.length === 0 ||
+            cardToDelete.length === props.card.length) && (
             <div className="flex justify-center items-center h-40">
               <h1 className="text-xl font-bold ">{i18n.t("edit.no_char")}</h1>
             </div>
@@ -48,18 +49,18 @@ export default function Edit(props: {
               />
             ))}
         </div>
-        <div className="flex flex-row justify-between p-4 border-t-2">
+        <div className="flex flex-row-reverse space-x-reverse space-x-2 p-4 ">
           <button
-            className="bg-gray-400 text-white px-2 h-9 min-w-24 rounded-lg"
-            onClick={handleClose}
-          >
-            {i18n.t("button.cancel")}
-          </button>
-          <button
-            className="px-2 min-w-24 h-9 rounded-lg bg-blue-500 text-white"
+            className="px-2 min-w-20 h-9 rounded-xl bg-blue-500 text-white"
             onClick={handleSave}
           >
             {i18n.t("button.save")}
+          </button>
+          <button
+            className="text-gray-600 px-2 h-9 min-w-20 rounded-xl hover:bg-gray-200"
+            onClick={handleClose}
+          >
+            {i18n.t("button.cancel")}
           </button>
         </div>
       </div>

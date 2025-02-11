@@ -6,15 +6,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 type CardProps = {
   card: CardData;
-  deleteCard: (id: number) => void;
+  deleteCard: (id: string) => void;
   isLast: boolean;
 };
 
 export default function EditCard({ card, deleteCard, isLast }: CardProps) {
   return (
-    <div
-      className={`relative p-2 w-full mt-2 ${!isLast ? "border-b" : "mb-2"}`}
-    >
+    <div className="relative p-2 w-full mt-2 border-b">
       <div className="flex justify-between align-middle items-center">
         <div className="flex align-middle items-center">
           <div className="flex py-2">

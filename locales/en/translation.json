@@ -1,4 +1,5 @@
 {
+    "title" : "Maple Timer",
     "pet":{
         "time" :{
             "21hr": "21 Hrs",
@@ -9,13 +10,30 @@
 
     "add":{
         "char_name": "Character Name",
-        "add_char": "Add Character"
+        "add_char": "Add Character",
+        "search_bar": "Search name",
+
+        "error":{
+            "400" : "Character not found.",
+            "search": "Please search for a character first.",
+            "duplicate": "Character already exists."
+        }
     },
 
     "edit":{
         "char_name": "Character Name",
         "edit_char": "Edit Character",
         "no_char" : "No Characters"
+    },
+
+    "settings":{
+        "title": "Settings",
+        "language": "Language",
+        "theme":{
+            "title": "Theme",
+            "light": "Light",
+            "dark": "Dark"
+        } 
     },
 
     "character_info":{
@@ -30,10 +48,6 @@
         "add": "Add",
         "ok": "OK",
         "cancel": "Cancel"
-    },
-
-    "error":{
-        "search": "Please search for a character first!"
     },
 
     "world":{

@@ -1,14 +1,14 @@
 // components/card.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { CardData } from "../../types/card";
-import Pet from "./pet";
+import Pet from "../pet";
 import i18n from "@/locales/config";
 import { WORLDS } from "@/constants/world";
 
 export default function PlayerCard(props: {
   card: CardData;
-  updateCard: (id: number, leftPetTime: string, rightPetTime: string) => void;
+  updateCard: (id: string, leftPetTime: string, rightPetTime: string) => void;
 }) {
   const [showDetail, setShowDetail] = useState(false);
 

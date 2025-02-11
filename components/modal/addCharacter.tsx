@@ -1,5 +1,6 @@
 import Modal from "@mui/material/Modal";
 import { playerDataType } from "@/types/playerData";
+import { character } from "@/types/card";
 import React, { useState } from "react";
 import i18n from "@/locales/config";
 import Image from "next/image";
@@ -8,14 +9,8 @@ import { WORLDS } from "@/constants/world";
 export default function AddCharacter(props: {
   open: boolean;
   close: () => void;
-  createNewCard: (character: {
-    name: string;
-    level: number;
-    world: string;
-    image: string;
-    leftPetTime: string;
-    rightPetTime: string;
-  }) => void;
+  createNewCard: (character: character) => void;
+  checkDuplicate: (name: string) => boolean;
 }) {
   const [playerData, setPlayerData] = useState<playerDataType>();
   const [name, setName] = useState("");
@@ -27,24 +22,17 @@ export default function AddCharacter(props: {
       if (query.ok) {
         const response = await query.json();
         setPlayerData(response);
-        console.log("Player Response data : ", response);
-      } else {
-        setError("Character doesn't exist");
-        console.log("Failed to fetch player data");
       }
     };
 
     const getOcidData = async () => {
-      console.log("Name : ", name);
       const query = await fetch(`/api/getUserOcid?username=${name}`);
       if (query.ok) {
         const response = await query.json();
         getPlayerData(response.ocid);
         setError("");
-        console.log("OCID Response data : ", response);
       } else {
-        setError("Character doesn't exist");
-        console.log("Failed to fetch ocid data");
+        setError(i18n.t("add.error.400"));
       }
     };
     await getOcidData();
@@ -59,17 +47,21 @@ export default function AddCharacter(props: {
 
   const handleAdd = () => {
     if (playerData) {
-      props.createNewCard({
-        name: playerData.character_name,
-        level: playerData.character_level,
-        world: playerData.world_name,
-        image: playerData.character_image,
-        leftPetTime: "00:00",
-        rightPetTime: "00:00",
-      });
-      handleClose();
+      if (props.checkDuplicate(playerData.character_name)) {
+        setError(i18n.t("add.error.duplicate"));
+      } else {
+        props.createNewCard({
+          name: playerData.character_name,
+          level: playerData.character_level,
+          world: playerData.world_name,
+          image: playerData.character_image,
+          leftPetTime: "--:--",
+          rightPetTime: "--:--",
+        });
+        handleClose();
+      }
     } else {
-      setError(i18n.t("error.search"));
+      setError(i18n.t("add.error.search"));
     }
   };
 
@@ -83,70 +75,57 @@ export default function AddCharacter(props: {
     <Modal open={props.open} onClose={handleClose}>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white rounded-lg w-11/12 md:w-1/2 ">
         <div className="flex flex-col p-4">
-          <h1 className="text-2xl font-bold">{i18n.t("add.add_char")}</h1>
-          <label htmlFor="name" className="text-lg">
-            {i18n.t("add.char_name")}
-          </label>
+          <h1 className="text-2xl font-bold mb-2">{i18n.t("add.add_char")}</h1>
           <div className="flex flex-row w-full space-x-2">
             <input
               type="text"
               id="name"
               className="border p-2 w-full rounded-lg"
               value={name}
-              placeholder="Enter Name"
+              placeholder={i18n.t("add.search_bar")}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={handleKeyDown}
+              spellCheck="false"
             />
-            <button
-              onClick={handleSearch}
-              className="bg-blue-500 text-white px-2 w-24 rounded-lg"
-            >
-              {i18n.t("button.search")}
-            </button>
           </div>
+          {error && <div className="text-red-500 px-1 mt-1">{error}</div>}
           <div className="flex flex-row mt-2">
-            {error != "" ? (
-              <div className="text-red-500 px-1">{error}</div>
-            ) : (
-              playerData && (
-                <div className="flex flex-row space-x-2">
-                  <div className="h-24 w-24 border rounded-lg flex justify-center items-center ">
-                    <Image
-                      src={playerData.character_image}
-                      alt={"test"}
-                      width={96}
-                      height={96}
-                    ></Image>
-                  </div>
-                  <div>
-                    <div className="p-2">
-                      <div>{playerData.character_name}</div>
-                      <div>
-                        {i18n.t("character_info.level")}
-                        {playerData.character_level}
-                      </div>
-                      <div>{WORLDS(playerData.world_name)}</div>
+            {playerData && (
+              <div className="flex flex-row space-x-2">
+                <div className="h-24 w-24 border rounded-lg flex justify-center items-center ">
+                  <Image
+                    src={playerData.character_image}
+                    alt={"PlayerImage"}
+                    width={96}
+                    height={96}
+                  ></Image>
+                </div>
+                <div>
+                  <div className="p-2">
+                    <div>{playerData.character_name}</div>
+                    <div>
+                      {i18n.t("character_info.level")}
+                      {playerData.character_level}
                     </div>
+                    <div>{WORLDS(playerData.world_name)}</div>
                   </div>
                 </div>
-              )
+              </div>
             )}
           </div>
 
-          <div className="flex flex-row justify-between mt-2">
+          <div className="flex flex-row-reverse space-x-reverse space-x-2 mt-2">
             <button
-              className="bg-gray-400 text-white p-2 min-w-24 rounded-lg"
-              onClick={handleClose}
-            >
-              {i18n.t("button.cancel")}
-            </button>
-            <button
-              className={`p-2 min-w-24 rounded-lg ${
-                playerData && !error ? "bg-blue-500" : "bg-gray-400"
-              } text-white`}
+              className="p-2 min-w-20 rounded-xl text-white bg-blue-500"
               onClick={handleAdd}
             >
               {i18n.t("button.add")}
+            </button>
+            <button
+              className="text-gray-600 p-2 min-w-20 rounded-xl hover:bg-gray-200"
+              onClick={handleClose}
+            >
+              {i18n.t("button.cancel")}
             </button>
           </div>
         </div>

@@ -1,21 +1,39 @@
 {
+    "title" : "메이플 타이머",
     "pet":{
         "time" :{
             "21hr": "21시간",
             "30min": "30분"
         },
-        "wake_time" : "Wake up time : {{time}}"
+        "wake_time" : "기상 시간: {{time}}"
     },
 
     "add":{
         "char_name": "캐릭터명",
-        "add_char" : "캐릭터 추가하기"
+        "add_char" : "캐릭터 추가하기",
+        "search_bar": "이름 검색",
+
+        "error":{
+            "400" : "캐릭터를 찾을 수 없습니다.",
+            "search": "캐릭터 검색을 먼저 해주세요." ,
+            "duplicate": "이미 등록한 캐릭터입니다."
+        }
     },
 
     "edit":{
         "char_name": "캐릭터명",
         "edit_char": "캐릭터 수정하기",
         "no_char" : "캐릭터 없음"
+    },
+
+    "settings":{
+        "title": "설정",
+        "language": "언어",
+        "theme": {
+            "title": "테마",
+            "light": "밝음",
+            "dark": "어두움"
+        }
     },
 
     "character_info":{
@@ -32,9 +50,6 @@
         "cancel": "취소"
     }, 
 
-    "error":{
-        "search": "캐릭터 검색을 먼저 해주세요!" 
-    },
 
     "world":{
         "scania": "스카니아",
