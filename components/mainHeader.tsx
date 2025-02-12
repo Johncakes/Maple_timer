@@ -14,9 +14,9 @@ export default function MainHeader(props: {
   return (
     <AppBar
       position="sticky"
-      className="p-4 bg-white shadow-none border-b-2 dark:border-zinc-700 dark:bg-stone-950"
+      className="p-4 bg-white shadow-none border-b-2 w-full dark:border-zinc-700 items-center dark:bg-stone-950"
     >
-      <div className="container flex justify-between items-center ">
+      <div className="container flex justify-between items-center max-w-screen-md">
         <div className="text-2xl font-bold text-blue-500">
           {i18n.t("title")}
         </div>
