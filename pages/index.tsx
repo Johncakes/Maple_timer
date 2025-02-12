@@ -71,7 +71,7 @@ export default function Home() {
 
   useEffect(() => {
     setLanguage(i18n.language);
-  }, [i18n.language]);
+  }, [i18n]);
 
   useEffect(() => {
     if (Cards.length > 0) {
@@ -112,7 +112,10 @@ export default function Home() {
     <ThemeProvider theme={muitheme}>
       <CssBaseline />
       <MainHeader openEdit={handleOpenEdit} openSettings={handleOpenSettings} />
-      <Container className="flex flex-col items-center p-2 pb-8 max-w-screen-md w-full  bg-white dark:bg-zinc-900 min-h-screen">
+      <Container
+        className="flex flex-col items-center p-2 pb-8 w-full bg-white dark:bg-zinc-900 min-h-screen"
+        maxWidth="md"
+      >
         {Cards.map((card) => (
           <PlayerCard key={card.id} card={card} updateCard={updateCard} />
         ))}
