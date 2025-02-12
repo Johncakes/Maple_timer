@@ -52,10 +52,18 @@
 
     "world":{
         "scania": "스카니아",
-        "luna": "루나",
-        "croa" : "크로아",
-        "elysium" : "엘리시움",
         "bera": "베라",
-        "aurora": "오로라"
+        "luna": "루나",
+        "zenith": "제니스",
+        "croa" : "크로아",
+        "union" : "유니온",
+        "elysium" : "엘리시움",
+        "enosis" : "이노시스",
+        "red" : "레드",
+        "aurora": "오로라",
+        "arcane": "아케인",
+        "nova": "노바",
+        "eos": "이오스",
+        "hellios": "헬리오스"
     }
 }

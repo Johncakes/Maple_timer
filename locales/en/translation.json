@@ -51,10 +51,18 @@
 
     "world":{
         "scania": "Scania",
-        "luna": "Luna",
-        "croa" : "Croa",
-        "elysium" : "Elysium",
         "bera": "Bera",
-        "aurora": "Aurora"
+        "luna": "Luna",
+        "zenith": "Zenith",
+        "croa" : "Croa",
+        "union" : "Union",
+        "elysium" : "Elysium",
+        "enosis" : "Enosis",
+        "red" : "Red",
+        "aurora": "Aurora",
+        "arcane" : "Arcane",
+        "nova" : "Nova",
+        "eos" : "Eos",
+        "hellios" : "Hellios"
     }
 }
