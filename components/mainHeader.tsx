@@ -12,8 +12,9 @@ export default function MainHeader(props: {
   return (
     <AppBar
       position="sticky"
-      className="p-4 shadow-none border-b-2 w-full dark:border-zinc-700 items-center"
+      className="p-4 shadow-none border-b-2 w-screen dark:border-zinc-700 items-center"
       color="default"
+      sx={{ boxShadow: 0 }}
     >
       <div className="container flex justify-between items-center max-w-screen-md">
         <div className="text-2xl font-bold text-blue-500">
