@@ -62,7 +62,7 @@ export default function AddCharacter(props: {
         handleClose();
       }
     } else {
-      setError(i18n.t("add.error.search"));
+      handleSearch();
     }
   };
 
