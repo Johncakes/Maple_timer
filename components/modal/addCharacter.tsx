@@ -93,7 +93,10 @@ export default function AddCharacter(props: {
           <div className="flex flex-row mt-2">
             {playerData && (
               <div className="flex flex-row space-x-2">
-                <Card className="border dark:border-zinc-700 dark:bg-zinc-800 shadow-none">
+                <Card
+                  className="border dark:border-zinc-700 dark:bg-zinc-800 shadow-none"
+                  sx={{ boxShadow: 0 }}
+                >
                   <CardMedia>
                     <Image
                       src={playerData.character_image}

@@ -26,7 +26,10 @@ export default function PlayerCard(props: {
     <Card className="relative p-2 w-full my-2 dark:border-none">
       <div className="flex flex-col place-content-center justify-between">
         <div className="flex " onClick={() => setShowDetail(!showDetail)}>
-          <Card className="border dark:border-zinc-700 shadow-none rounded-lg">
+          <Card
+            className="border dark:border-zinc-700 shadow-none rounded-lg"
+            sx={{ boxShadow: 0 }}
+          >
             <CardMedia>
               <Image
                 src={props.card.image}
