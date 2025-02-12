@@ -16,7 +16,7 @@ export default function EditCard({ card, deleteCard, isLast }: CardProps) {
       <div className="flex justify-between align-middle items-center">
         <div className="flex align-middle items-center">
           <div className="flex py-2">
-            <div className="dark:text-white font-medium">{card.name}</div>
+            <div className="dark:text-white font-bold">{card.name}</div>
           </div>
         </div>
         <IconButton onClick={() => deleteCard(card.id)}>
