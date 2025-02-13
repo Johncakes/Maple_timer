@@ -1,12 +1,10 @@
 import AddIcon from "@mui/icons-material/Add";
+import { Button } from "@mui/material";
 
 export default function AddCardButton(props: { setOpen: () => void }) {
   return (
-    <button
-      onClick={props.setOpen}
-      className="p-1 border-2 dark:border-none dark:bg-neutral-600 rounded-lg w-full text-white mt-2"
-    >
-      <AddIcon sx={{ color: "#757575" }} />
-    </button>
+    <Button fullWidth variant="contained" onClick={props.setOpen}>
+      <AddIcon sx={{}} />
+    </Button>
   );
 }

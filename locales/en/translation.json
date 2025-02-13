@@ -5,7 +5,9 @@
             "21hr": "21 Hrs",
             "30min": "30 Min"
         },
-        "wake_time" : "Wake time : {{time}}"
+        "wake_time" : "Wake time : {{time}}",
+        "sleeping" : "Sleeping",
+        "awake" : "Awake"
     },
 
     "add":{
@@ -46,7 +48,8 @@
         "save": "Save",
         "add": "Add",
         "ok": "OK",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "delete": "Delete"
     },
 
     "world":{

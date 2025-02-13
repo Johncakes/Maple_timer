@@ -1,4 +1,5 @@
 import {
+  Button,
   InputLabel,
   MenuItem,
   Modal,
@@ -88,18 +89,16 @@ export default function Settings(props: {
             </Select>
           </div>
           <div className="flex flex-row-reverse space-x-reverse space-x-2 mt-2">
-            <button
-              className="p-2 min-w-20 rounded-xl text-white bg-blue-500"
+            <Button
+              style={{ textTransform: "none" }}
+              variant="contained"
               onClick={handleSave}
             >
               {i18n.t("button.save")}
-            </button>
-            <button
-              className="dark:text-white text-gray-600 p-2 min-w-20 rounded-xl hover:bg-gray-200"
-              onClick={handleCancel}
-            >
+            </Button>
+            <Button style={{ textTransform: "none" }} onClick={handleCancel}>
               {i18n.t("button.cancel")}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

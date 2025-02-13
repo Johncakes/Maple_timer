@@ -4,8 +4,8 @@ export type CardData = {
   level: number;
   world: string;
   image: string;
-  leftPetTime: string;
-  rightPetTime: string;
+  leftPetTime: Date | null;
+  rightPetTime: Date | null;
 };
 
 export type character = {
@@ -13,6 +13,6 @@ export type character = {
   level: number;
   world: string;
   image: string;
-  leftPetTime: string;
-  rightPetTime: string;
+  leftPetTime: Date | null;
+  rightPetTime: Date | null;
 };

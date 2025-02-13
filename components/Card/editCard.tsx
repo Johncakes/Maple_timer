@@ -1,7 +1,7 @@
 // components/card.tsx
 import React from "react";
 import { CardData } from "../../types/card";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 type CardProps = {
@@ -19,9 +19,16 @@ export default function EditCard({ card, deleteCard, isLast }: CardProps) {
             <div className="dark:text-white font-bold">{card.name}</div>
           </div>
         </div>
-        <IconButton onClick={() => deleteCard(card.id)}>
-          <DeleteIcon sx={{ color: "#EF4343" }} />
-        </IconButton>
+
+        <Button
+          variant="outlined"
+          color="error"
+          style={{ textTransform: "none" }}
+          onClick={() => deleteCard(card.id)}
+        >
+          <DeleteIcon />
+          Delete
+        </Button>
       </div>
     </div>
   );

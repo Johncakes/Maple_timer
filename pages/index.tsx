@@ -6,17 +6,11 @@ import { CardData } from "../types/card";
 import AddCardButton from "../components/addCardButton";
 import MainHeader from "../components/mainHeader";
 import AddCharacter from "@/components/modal/addCharacter";
-import Edit from "@/components/modal/edit";
 import Settings from "@/components/modal/settings";
 import i18n from "@/locales/config";
 import { ThemeProvider } from "@emotion/react";
-import {
-  Box,
-  Container,
-  createTheme,
-  CssBaseline,
-  useColorScheme,
-} from "@mui/material";
+
+import { Container, createTheme, CssBaseline, Stack } from "@mui/material";
 
 export default function Home() {
   const [cardIdCounter, setCardIdCounter] = useState(0);
@@ -35,7 +29,11 @@ export default function Home() {
     setCardIdCounter(cardIdCounter + 1);
   }
 
-  function updateCard(id: string, leftPetTime: string, rightPetTime: string) {
+  function updateCard(
+    id: string,
+    leftPetTime: Date | null,
+    rightPetTime: Date | null
+  ) {
     setCards((prevCards) =>
       prevCards.map((card) =>
         card.id === id ? { ...card, leftPetTime, rightPetTime } : card
@@ -47,16 +45,23 @@ export default function Home() {
     return Cards.some((card) => card.name === name);
   }
 
-  console.log("i18n : ", i18n.language);
+  function deleteCard(id: string[]) {
+    setCards((prevCards) => prevCards.filter((card) => !id.includes(card.id)));
+  }
+
   useEffect(() => {
     const localStorageCards = localStorage.getItem("cards");
     const localStorageLanguage = localStorage.getItem("i18nextLng");
     const localStorageTheme = localStorage.getItem("theme");
 
-    console.log("local language : ", localStorageLanguage);
     if (localStorageCards) {
       const parsedCards = JSON.parse(localStorageCards);
-      setCards(parsedCards);
+      const cardsWithDates = parsedCards.map((card: CardData) => ({
+        ...card,
+        leftPetTime: card.leftPetTime ? new Date(card.leftPetTime) : null,
+        rightPetTime: card.rightPetTime ? new Date(card.rightPetTime) : null,
+      }));
+      setCards(cardsWithDates);
       setCardIdCounter(parsedCards.length + 1);
     }
 
@@ -75,8 +80,9 @@ export default function Home() {
 
   useEffect(() => {
     if (Cards.length > 0) {
-      console.log("Updated to localStorage : ", Cards);
       localStorage.setItem("cards", JSON.stringify(Cards));
+    } else {
+      localStorage.removeItem("cards");
     }
   }, [Cards]);
 
@@ -88,14 +94,10 @@ export default function Home() {
     }
   }, [theme]);
 
-  function deleteCard(id: string[]) {
-    setCards((prevCards) => prevCards.filter((card) => !id.includes(card.id)));
-  }
   const handleOpenAdd = () => setShowAddCharacter(true);
   const handleCloseAdd = () => setShowAddCharacter(false);
 
-  const handleOpenEdit = () => setShowEdit(true);
-  const handleCloseEdit = () => setShowEdit(false);
+  const handleEdit = () => setShowEdit(!showEdit);
 
   const handleOpenSettings = () => setShowSettings(true);
   const handleCloseSettings = () => setShowSettings(false);
@@ -103,29 +105,38 @@ export default function Home() {
   const muitheme = createTheme({
     palette: {
       mode: theme === "dark" ? "dark" : "light",
+      primary: {
+        main: "#3B82F6",
+      },
+      secondary: {
+        main: "#8591AE",
+      },
+      error: {
+        main: "#FF5449",
+      },
     },
   });
 
-  // <div className="flex flex-col items-center py-20 pb- max-w-screen-md w-full px-2 bg-white dark:bg-zinc-900 min-h-screen">
-  // </div>
   return (
     <ThemeProvider theme={muitheme}>
       <CssBaseline />
-      <MainHeader openEdit={handleOpenEdit} openSettings={handleOpenSettings} />
-      <Container
-        className="flex flex-col items-center p-2 pb-8 w-full bg-white dark:bg-zinc-900 min-h-screen"
-        maxWidth="md"
-      >
-        {Cards.map((card) => (
-          <PlayerCard key={card.id} card={card} updateCard={updateCard} />
-        ))}
-
-        <Edit
-          open={showEdit}
-          close={handleCloseEdit}
-          card={Cards}
-          deleteCard={deleteCard}
-        />
+      <MainHeader
+        showEdit={showEdit}
+        openEdit={handleEdit}
+        openSettings={handleOpenSettings}
+      />
+      <Container maxWidth="md" disableGutters className="p-2">
+        <Stack>
+          {Cards.map((card) => (
+            <PlayerCard
+              key={card.id}
+              card={card}
+              updateCard={updateCard}
+              deleteCard={deleteCard}
+              showEdit={showEdit}
+            />
+          ))}
+        </Stack>
 
         <AddCharacter
           open={showAddCharacter}

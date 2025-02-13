@@ -1,19 +1,25 @@
 import Image from "next/image";
-import petIcon from "../Images/petIcon.png";
+import petIcon from "../../Images/petIcon.png";
 import i18n from "@/locales/config";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 export default function Pet(props: {
-  petTime: string;
-  setPetTime: (time: string) => void;
+  petTime: Date | null;
+  setPetTime: (time: Date | null) => void;
 }) {
   function changeTime(iHour: number, iMin: number) {
     const currentTime = new Date();
     currentTime.setHours(currentTime.getHours() + iHour);
     currentTime.setMinutes(currentTime.getMinutes() + iMin);
 
-    const formattedTime = currentTime.toLocaleTimeString([], {
+    return currentTime;
+  }
+
+  function formattedTime(time: Date | null) {
+    if (!time) return "--:--";
+    console.log("before Format : ", time);
+    const formattedTime = time.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -23,7 +29,7 @@ export default function Pet(props: {
   return (
     <div className="relative flex rounded w-full">
       <div className="absolute top-0 right-0">
-        <IconButton onClick={() => props.setPetTime("--:--")}>
+        <IconButton onClick={() => props.setPetTime(null)}>
           <RefreshIcon fontSize="small" />
         </IconButton>
       </div>
@@ -37,22 +43,30 @@ export default function Pet(props: {
         />
 
         <div className="dark:text-white text-xs sm:text-base md:text-lg my-2">
-          {i18n.t("pet.wake_time", { time: props.petTime })}
+          {i18n.t("pet.wake_time", { time: formattedTime(props.petTime) })}
         </div>
 
-        <div className="flex w-full flex-row space-x-2 text-xs sm:text-base">
-          <button
-            className="bg-blue-500 rounded px-1 py-2 text-white w-full transition duration-300 ease-in-out transform active:scale-95"
+        <div className="flex w-full flex-row space-x-2 sm:text-base">
+          <Button
+            style={{ textTransform: "none" }}
+            fullWidth
+            variant="contained"
             onClick={() => props.setPetTime(changeTime(21, 0))}
+            size="small"
+            sx={{ boxShadow: 0 }}
           >
             {i18n.t("pet.time.21hr")}
-          </button>
-          <button
-            className="bg-blue-500 rounded p-1 py-2 text-white w-full transition duration-300 ease-in-out transform active:scale-95"
+          </Button>
+          <Button
+            style={{ textTransform: "none" }}
+            fullWidth
+            variant="contained"
             onClick={() => props.setPetTime(changeTime(0, 30))}
+            size="small"
+            sx={{ boxShadow: 0 }}
           >
             {i18n.t("pet.time.30min")}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

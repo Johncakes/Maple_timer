@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import i18n from "@/locales/config";
 import Image from "next/image";
 import { WORLDS } from "@/constants/world";
-import { Card, CardMedia, TextField } from "@mui/material";
+import { Button, Card, CardMedia, TextField } from "@mui/material";
 
 export default function AddCharacter(props: {
   open: boolean;
@@ -56,8 +56,8 @@ export default function AddCharacter(props: {
           level: playerData.character_level,
           world: playerData.world_name,
           image: playerData.character_image,
-          leftPetTime: "--:--",
-          rightPetTime: "--:--",
+          leftPetTime: null,
+          rightPetTime: null,
         });
         handleClose();
       }
@@ -122,18 +122,16 @@ export default function AddCharacter(props: {
           </div>
 
           <div className="flex flex-row-reverse space-x-reverse space-x-2 mt-2">
-            <button
-              className="p-2 min-w-20 rounded-xl text-white bg-blue-500"
+            <Button
+              style={{ textTransform: "none" }}
+              variant="contained"
               onClick={handleAdd}
             >
               {i18n.t("button.add")}
-            </button>
-            <button
-              className="text-gray-600 dark:text-white p-2 min-w-20 rounded-xl hover:bg-gray-200"
-              onClick={handleClose}
-            >
+            </Button>
+            <Button style={{ textTransform: "none" }} onClick={handleClose}>
               {i18n.t("button.cancel")}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

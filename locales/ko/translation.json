@@ -5,7 +5,9 @@
             "21hr": "21시간",
             "30min": "30분"
         },
-        "wake_time" : "기상 시간: {{time}}"
+        "wake_time" : "기상 시간: {{time}}",
+        "sleeping" : "자는중",
+        "awake" : "일어남"
     },
 
     "add":{
@@ -46,7 +48,8 @@
         "save": "저장",
         "add": "추가",
         "ok": "확인",
-        "cancel": "취소"
+        "cancel": "취소",
+        "delete": "삭제"
     }, 
 
 

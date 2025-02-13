@@ -2,10 +2,12 @@
 import { AppBar, IconButton } from "@mui/material";
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 import SettingsIcon from "@mui/icons-material/Settings";
 import i18n from "@/locales/config";
 
 export default function MainHeader(props: {
+  showEdit: boolean;
   openEdit: () => void;
   openSettings: () => void;
 }) {
@@ -22,7 +24,7 @@ export default function MainHeader(props: {
         </div>
         <div>
           <IconButton onClick={props.openEdit}>
-            <EditIcon />
+            {props.showEdit ? <SaveIcon /> : <EditIcon />}
           </IconButton>
           <IconButton onClick={props.openSettings}>
             <SettingsIcon />

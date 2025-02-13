@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { stringify } from "querystring";
 
 export default async function handler(
   req: NextApiRequest,
