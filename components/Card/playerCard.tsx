@@ -106,7 +106,7 @@ export default function PlayerCard(props: {
 
           <Fade in={showDetail}>
             <div>
-              <Divider variant="middle" className="my-2" />
+              <Divider variant="middle" sx={{ my: 1 }} />
               <div className="flex flex-row justify-between space-x-2">
                 <Pet
                   petTime={props.card.leftPetTime}
