@@ -42,7 +42,7 @@ export default function Pet(props: {
           className="border dark:border-none rounded p-2 bg-gray-100 dark:bg-zinc-600"
         />
 
-        <div className="dark:text-white text-xs sm:text-base md:text-lg my-2">
+        <div className="dark:text-white text-xs sm:text-base my-2">
           {i18n.t("pet.wake_time", { time: formattedTime(props.petTime) })}
         </div>
 

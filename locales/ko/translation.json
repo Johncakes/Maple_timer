@@ -32,8 +32,9 @@
         "language": "언어",
         "theme": {
             "title": "테마",
-            "light": "라이트 모드",
-            "dark": "다크 모드"
+            "light": "라이트",
+            "dark": "다크",
+            "system": "시스템 설정"
         }
     },
 

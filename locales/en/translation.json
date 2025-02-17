@@ -33,7 +33,8 @@
         "theme":{
             "title": "Theme",
             "light": "Light",
-            "dark": "Dark"
+            "dark": "Dark",
+            "system": "System"
         } 
     },
 

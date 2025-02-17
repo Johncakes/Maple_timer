@@ -1,65 +1,73 @@
 import {
   Button,
-  InputLabel,
+  ButtonGroup,
   MenuItem,
   Modal,
+  PaletteMode,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import i18n from "@/locales/config";
+import ModeNightIcon from "@mui/icons-material/ModeNight";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 export default function Settings(props: {
   open: boolean;
   close: () => void;
   theme: string;
-  setTheme: (theme: string) => void;
+  setTheme: (theme: PaletteMode) => void;
   language: string;
   setLanguage: (language: string) => void;
 }) {
-  const [prevLanguage, setPrevLanguage] = useState(props.language);
-  const [prevTheme, setPrevTheme] = useState(props.theme);
-
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-    setPrevLanguage(props.language);
     i18n.changeLanguage(event.target.value as string);
     props.setLanguage(i18n.language);
   };
 
-  const handleThemeChange = (event: SelectChangeEvent<string>) => {
-    setPrevTheme(props.theme);
-    props.setTheme(event.target.value as string);
-    localStorage.setItem("theme", event.target.value as string);
+  const handleThemeChange = (theme: PaletteMode) => {
+    localStorage.setItem("theme", theme);
+    props.setTheme(theme);
   };
-
-  const handleSave = () => {
-    setPrevLanguage(props.language);
-    setPrevTheme(props.theme);
-    props.close();
-  };
-  const handleCancel = () => {
-    i18n.changeLanguage(prevLanguage);
-    props.setLanguage(prevLanguage);
-    props.setTheme(prevTheme);
-    props.close();
-  };
-
-  useEffect(() => {
-    setPrevLanguage(props.language);
-    setPrevTheme(props.theme);
-  }, [props.open]);
 
   return (
-    <Modal open={props.open} onClose={handleCancel}>
+    <Modal open={props.open} onClose={props.close}>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 content-center bg-white dark:bg-zinc-800 rounded-lg w-11/12 md:w-1/2 ">
         <div className="flex flex-col p-4 space-y-2">
           <h1 className="text-2xl font-bold dark:text-white">
             {i18n.t("settings.title")}
           </h1>
-          <div>
-            <InputLabel id="LanguageLabel">
-              {i18n.t("settings.language")}
-            </InputLabel>
+          <div className="flex flex-col space-y-1">
+            <text>{i18n.t("settings.theme.title")}</text>
+            <ButtonGroup fullWidth>
+              <Button
+                style={{ textTransform: "none" }}
+                variant={props.theme === "light" ? "contained" : "outlined"}
+                color={props.theme === "light" ? "primary" : "secondary"}
+                key="light"
+                startIcon={<LightModeIcon />}
+                size="small"
+                sx={{ p: 1 }}
+                onClick={() => handleThemeChange("light")}
+              >
+                {i18n.t("settings.theme.light")}
+              </Button>
+              <Button
+                style={{ textTransform: "none" }}
+                variant={props.theme === "dark" ? "contained" : "outlined"}
+                color={props.theme === "dark" ? "primary" : "secondary"}
+                key="dark"
+                startIcon={<ModeNightIcon />}
+                size="small"
+                sx={{ p: 1 }}
+                onClick={() => handleThemeChange("dark")}
+              >
+                {i18n.t("settings.theme.dark")}
+              </Button>
+            </ButtonGroup>
+          </div>
+          <div className="flex flex-col space-y-1">
+            <text>{i18n.t("settings.language")}</text>
             <Select
               labelId="languageLabel"
               id="language"
@@ -71,33 +79,13 @@ export default function Settings(props: {
               <MenuItem value="ko">한국어</MenuItem>
             </Select>
           </div>
-          <div>
-            <InputLabel id="themeLabel">
-              {i18n.t("settings.theme.title")}
-            </InputLabel>
-            <Select
-              labelId="themeLabel"
-              id="theme"
-              value={props.theme}
-              onChange={handleThemeChange}
-              className="w-full"
-            >
-              <MenuItem value="light">
-                {i18n.t("settings.theme.light")}
-              </MenuItem>
-              <MenuItem value="dark">{i18n.t("settings.theme.dark")}</MenuItem>
-            </Select>
-          </div>
           <div className="flex flex-row-reverse space-x-reverse space-x-2 mt-2">
             <Button
               style={{ textTransform: "none" }}
-              variant="contained"
-              onClick={handleSave}
+              variant="text"
+              onClick={props.close}
             >
               {i18n.t("button.save")}
-            </Button>
-            <Button style={{ textTransform: "none" }} onClick={handleCancel}>
-              {i18n.t("button.cancel")}
             </Button>
           </div>
         </div>

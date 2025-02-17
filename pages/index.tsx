@@ -8,16 +8,16 @@ import MainHeader from "../components/mainHeader";
 import AddCharacter from "@/components/modal/addCharacter";
 import Settings from "@/components/modal/settings";
 import i18n from "@/locales/config";
-import { ThemeProvider } from "@emotion/react";
-
-import { Container, createTheme, CssBaseline, Stack } from "@mui/material";
+import { PaletteMode } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Container, CssBaseline, Stack } from "@mui/material";
 
 export default function Home() {
   const [cardIdCounter, setCardIdCounter] = useState(0);
   const [Cards, setCards] = useState<CardData[]>([]);
 
   const [language, setLanguage] = useState(i18n.language);
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<PaletteMode>("dark");
 
   // Modal states
   const [showAddCharacter, setShowAddCharacter] = useState(false);
@@ -70,7 +70,7 @@ export default function Home() {
     }
 
     if (localStorageTheme) {
-      setTheme(localStorageTheme);
+      setTheme(localStorageTheme as PaletteMode);
     }
   }, []);
 
@@ -104,7 +104,7 @@ export default function Home() {
 
   const muitheme = createTheme({
     palette: {
-      mode: theme === "dark" ? "dark" : "light",
+      mode: theme,
       primary: {
         main: "#3B82F6",
       },
@@ -118,7 +118,7 @@ export default function Home() {
   });
 
   return (
-    <ThemeProvider theme={muitheme}>
+    <ThemeProvider theme={muitheme} defaultMode="dark">
       <CssBaseline />
       <MainHeader
         showEdit={showEdit}

@@ -13,8 +13,11 @@ import {
   Collapse,
   Divider,
   Fade,
+  IconButton,
 } from "@mui/material";
 import PetState from "../pet/petState";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 export default function PlayerCard(props: {
   card: CardData;
@@ -36,14 +39,14 @@ export default function PlayerCard(props: {
   };
 
   return (
-    <Card className="relative p-2 w-full my-2 dark:border-none">
-      <Collapse in={showDetail} collapsedSize={68}>
-        <div className="flex flex-col place-content-center justify-between">
+    <Card className="relative p-2 w-full my-2 dark:border-none flex flex-col items-center justify-center">
+      <Collapse in={showDetail} collapsedSize={68} className="w-full">
+        <div className="flex flex-col place-content-center">
           <div
-            className="flex items-center"
+            className="flex items-center justify-between"
             onClick={() => setShowDetail(!showDetail)}
           >
-            <div className="flex w-full ">
+            <div className="flex ">
               <Card
                 className="border dark:border-zinc-700 shadow-none rounded-lg"
                 sx={{ boxShadow: 0 }}
@@ -121,6 +124,18 @@ export default function PlayerCard(props: {
           </Fade>
         </div>
       </Collapse>
+
+      <IconButton
+        onClick={() => setShowDetail(!showDetail)}
+        className="w-full"
+        sx={{ p: 0 }}
+      >
+        {showDetail ? (
+          <ArrowDropUpIcon fontSize="small" />
+        ) : (
+          <ArrowDropDownIcon fontSize="small" className="absolute bottom-0" />
+        )}
+      </IconButton>
     </Card>
   );
 }
