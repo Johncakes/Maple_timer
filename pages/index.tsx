@@ -11,6 +11,7 @@ import i18n from "@/locales/config";
 import { PaletteMode } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Container, CssBaseline, Stack } from "@mui/material";
+import EmptyCard from "@/components/Card/emptyCard";
 
 export default function Home() {
   const [cardIdCounter, setCardIdCounter] = useState(0);
@@ -136,6 +137,7 @@ export default function Home() {
               showEdit={showEdit}
             />
           ))}
+          {Cards.length === 0 && <EmptyCard></EmptyCard>}
         </Stack>
 
         <AddCharacter

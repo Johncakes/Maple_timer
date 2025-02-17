@@ -68,5 +68,9 @@
         "nova" : "Nova",
         "eos" : "Eos",
         "hellios" : "Hellios"
+    },
+
+    "place_holder":{
+        "helper" : "Press '+' to add a character."
     }
 }
